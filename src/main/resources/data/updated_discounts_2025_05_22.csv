@@ -1,0 +1,6 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from _date;to_date;percentage_of_discount
+P101;smântână grasă;Zuzu;0.2;kg;lactate;2025-05-22;2025-05-30;5
+P102;roșii prunișoare;Lidl;500.0;g;legume și fructe;2025-05-22;2025-05-30;5
+P103;făină albă 000;Băneasa;1.0;kg;alimente de bază;2025-05-22;2025-05-30;5
+P104;suc de portocale;Cappy;1.0;l;băuturi;2025-05-22;2025-05-30;5
+P105;șampon păr uscat;Nivea;250.0;ml;îngrijire personală;2025-05-22;2025-05-30;5

@@ -1,7 +1,7 @@
 package service;
 
-import model.Product;
-import repository.ProductRepository;
+import org.example.pricecomparatorvladstoianiountaccesa_project.model.Product;
+import org.example.pricecomparatorvladstoianiountaccesa_project.repository.ProductRepository;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
-import model.Discount;
-import model.Product;
+import org.example.pricecomparatorvladstoianiountaccesa_project.model.Discount;
+import org.example.pricecomparatorvladstoianiountaccesa_project.model.Product;
 import org.junit.jupiter.api.Test;
 import util.DiscountedCsvUtil;
 

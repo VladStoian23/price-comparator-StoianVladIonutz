@@ -1,4 +1,4 @@
-import model.Product;
+import org.example.pricecomparatorvladstoianiountaccesa_project.model.Product;
 import util.CsvUtil;
 
 import java.util.List;

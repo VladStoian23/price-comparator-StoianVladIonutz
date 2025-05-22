@@ -1,7 +1,7 @@
 package util;
 
-import model.Discount;
-import model.Product;
+import org.example.pricecomparatorvladstoianiountaccesa_project.model.Discount;
+import org.example.pricecomparatorvladstoianiountaccesa_project.model.Product;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
