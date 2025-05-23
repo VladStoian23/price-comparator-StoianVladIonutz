@@ -45,9 +45,9 @@ public class DiscountRepositoryImplementation implements DiscountRepository {
 
     @Override
     public List<Discount> getDiscountsAddedInLast24Hours() {
-        LocalDateTime cutoff = LocalDateTime.now().minusHours(24);
+        LocalDateTime cutoff = LocalDateTime.now().minusHours(24);//we set the cutoff to the desired time
         return discounts.stream()
-                .filter(entry -> entry.addedAt.isAfter(cutoff))
+                .filter(entry -> entry.addedAt.isAfter(cutoff))//we check if the discount was added after the cutoff
                 .map(entry -> entry.discount)
                 .collect(Collectors.toList());
     }

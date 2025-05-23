@@ -71,7 +71,7 @@ public class ProductController {
         return productRepository.getProductsByCategory(category);
     }
 
-    // --- Price Alert Endpoints ---
+    // --- Secton dedicated for Price Alert Endpoints ---
 
     // Set a target price alert for a product
     @PostMapping("/alerts")

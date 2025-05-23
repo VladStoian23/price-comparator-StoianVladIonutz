@@ -24,6 +24,16 @@ public class CsvUtil {
                 }
 
                 try {
+                    String priceStr = fields[6].trim();
+                    if (priceStr.isEmpty()) {
+                        System.out.println("Skipping product with missing price: " + line);
+                        continue;
+                    }
+                    double price = Double.parseDouble(priceStr);
+                    if (price <= 0) {
+                        System.out.println("Skipping product with zero or negative price: " + line);
+                        continue;
+                    }
                     Product product = new Product(
                             fields[0].trim(),
                             fields[1].trim(),
@@ -31,7 +41,7 @@ public class CsvUtil {
                             fields[3].trim(),
                             Double.parseDouble(fields[4].trim()),
                             fields[5].trim(),
-                            Double.parseDouble(fields[6].trim()),
+                            price,
                             fields[7].trim()
                     );
                     products.add(product);
@@ -50,6 +60,4 @@ public class CsvUtil {
         }
         return products;
     }
-
-
 }
