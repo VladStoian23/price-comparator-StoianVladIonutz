@@ -8,4 +8,6 @@ public interface DiscountRepository {
     List<Discount> getAllDiscounts();
     List<Discount> getDiscountsByProduct(String productId);
     List<Discount> getDiscountsAddedInLast24Hours(); // NEW
+    List<Discount> getBestDiscountsForProducts(List<String> productIds);
+    List<Discount> getProductsWithHighestCurrentDiscounts();
 }

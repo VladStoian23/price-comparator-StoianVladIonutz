@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products")
@@ -26,17 +27,16 @@ public class ProductController {
         return productRepository.getAllProducts();
     }
 
-    // GET endpoint for quick testing: loads products from a CSV file path (relative to project root)
     @GetMapping("/load-csv")
     public List<Product> loadProductsFromCsv(@RequestParam String filePath) {
         List<Product> products = CsvUtil.readProductsFromCsv(filePath);
         for (Product product : products) {
             productRepository.addProduct(product);
         }
+        productRepository.checkAlerts();
         return products;
     }
 
-    // POST endpoint for uploading a CSV file directly
     @PostMapping("/upload-csv")
     public List<Product> uploadProductsCsv(@RequestParam("file") MultipartFile file) {
         List<Product> products = new ArrayList<>();
@@ -62,11 +62,27 @@ public class ProductController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        productRepository.checkAlerts();
         return products;
     }
 
     @GetMapping("/category/{category}")
     public List<Product> getProductsByCategory(@PathVariable String category) {
         return productRepository.getProductsByCategory(category);
+    }
+
+    // --- Price Alert Endpoints ---
+
+    // Set a target price alert for a product
+    @PostMapping("/alerts")
+    public String setPriceAlert(@RequestParam String productId, @RequestParam double targetPrice) {
+        productRepository.setPriceAlert(productId, targetPrice);
+        return "Alert set for product " + productId + " at target price " + targetPrice;
+    }
+
+    // Get all triggered alerts (products at or below target price)
+    @GetMapping("/alerts/triggered")
+    public Map<String, Double> getTriggeredAlerts() {
+        return productRepository.getTriggeredAlerts();
     }
 }

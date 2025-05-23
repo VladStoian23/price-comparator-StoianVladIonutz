@@ -5,10 +5,16 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.HashMap;
 
 @Repository
 public class ProductRepositoryImplementation implements ProductRepository {
     private final List<Product> products = new ArrayList<>();
+    // Map to store user alerts: productId -> targetPrice
+    private final Map<String, Double> priceAlerts = new HashMap<>();
+    // Map to store triggered alerts: productId -> currentPrice
+    private final Map<String, Double> triggeredAlerts = new HashMap<>();
 
     @Override
     public void addProduct(Product product) {
@@ -48,5 +54,28 @@ public class ProductRepositoryImplementation implements ProductRepository {
     @Override
     public void deleteProduct(String productId) {
         products.removeIf(p -> p.getProductId().equals(productId));
+    }
+
+    // --- Price Alert Logic for the Custom Price Alert ---
+
+    @Override
+    public void setPriceAlert(String productId, double targetPrice) {
+        priceAlerts.put(productId, targetPrice);
+    }
+
+    @Override
+    public void checkAlerts() {
+        triggeredAlerts.clear();
+        for (Product product : products) {
+            Double target = priceAlerts.get(product.getProductId());
+            if (target != null && product.getPrice() <= target) {
+                triggeredAlerts.put(product.getProductId(), product.getPrice());
+            }
+        }
+    }
+
+    @Override
+    public Map<String, Double> getTriggeredAlerts() {
+        return new HashMap<>(triggeredAlerts);
     }
 }
