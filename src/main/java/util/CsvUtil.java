@@ -34,18 +34,30 @@ public class CsvUtil {
                         System.out.println("Skipping product with zero or negative price: " + line);
                         continue;
                     }
+                    double packageQuantity = Double.parseDouble(fields[4].trim());
+                    String packageUnit = fields[5].trim();
+                    double valuePerUnit = (packageQuantity > 0) ? price / packageQuantity : 0.0;
+
                     Product product = new Product(
                             fields[0].trim(),
                             fields[1].trim(),
                             fields[2].trim(),
                             fields[3].trim(),
-                            Double.parseDouble(fields[4].trim()),
-                            fields[5].trim(),
+                            packageQuantity,
+                            packageUnit,
                             price,
                             fields[7].trim()
                     );
                     products.add(product);
-                    System.out.println("Parsed product: " + product);
+
+                    // Highlight value per unit
+                    System.out.printf("Parsed product: %s | Value per %s: %.2f %s/%s%n",
+                            product.getProductName(),
+                            packageUnit,
+                            valuePerUnit,
+                            product.getCurrency(),
+                            packageUnit
+                    );
                 } catch (Exception parseEx) {
                     System.out.println("Failed to parse product from line: " + line);
                     parseEx.printStackTrace();
